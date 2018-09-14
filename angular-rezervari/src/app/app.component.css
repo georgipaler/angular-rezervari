@@ -1,3 +1,11 @@
+/*
+    light0:#7BDFF2;
+    light: #0094C6;
+    dark:  #001242;
+    dark2: #2A2A72
+*/
+
+
 body{
     position: relative;
 }
@@ -10,16 +18,21 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
 
-
+    background-color: white;
     height: 80vh;
     width: 90vw;
     box-shadow: 3px 3px 25px #888888;
-    overflow:scroll
+    
 }
 
 
 .mainWrraper{
-    padding: 15px 30px 20px 30px;
+    padding: 15px 30px 0px 30px;
+    margin-bottom: 50px;
+    height: 90%;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    background-color: white;
 }
 
 /*navigation bar*/
@@ -35,6 +48,7 @@ li {
 .navigation-bar{
     background-color: white;
     overflow: hidden;
+    height: 10%;
 }
 
  li a{
@@ -47,11 +61,12 @@ li {
 }
 h1{
     margin: 10px !important;
+    color: #2A2A72;
 }
 
 .navigation-bar a:hover {
     background-color: white;
-    color: #88CCF1;
+    color: #0094C6;
 }
 
 
@@ -63,7 +78,7 @@ h1{
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 }
 
 /* Track */
@@ -74,6 +89,6 @@ h1{
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #DFFDFF; 
+    background: #7BDFF2; 
     border-radius: 10px;
 }
