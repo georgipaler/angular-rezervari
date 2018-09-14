@@ -8,6 +8,7 @@ import { BookingComponent } from './booking/booking.component';
 import { ManagementComponent } from './management/management.component';
 
 import { Routes, RouterModule, Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes =[
   { path: '', redirectTo: 'rooms', pathMatch: 'full'},
@@ -27,6 +28,7 @@ const routes: Routes =[
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true} )
   ],
   providers: [],

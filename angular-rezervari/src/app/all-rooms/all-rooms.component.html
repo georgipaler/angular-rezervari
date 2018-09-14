@@ -1,13 +1,11 @@
-<p>
-  all-rooms works!
-</p>
-<p>
-    1.<br><br><br><br><br><br><br><br><br><br>
-</p>
-<p>
-    2.<br><br><br><br><br><br><br><br><br><br>
-</p>
-<p>
-    3.<br><br><br><br><br><br><br><br><br><br>
-</p>
-<p>{{room}}</p>
+<div class="mainContainer" *ngFor="let room of roomsArray">
+   <div class="main">
+        <div class="card">
+                <div class="container">
+                  <h4><b>{{room.name}}</b></h4> 
+                  <p>Etaj: {{room.floor}}</p> 
+                  <p>Cladire: {{room.building}}</p> 
+                </div>
+              </div>
+   </div>
+</div>

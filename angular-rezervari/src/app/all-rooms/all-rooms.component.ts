@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { IRoom } from './room-interface/room';
 
 @Component({
   selector: 'app-all-rooms',
@@ -7,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllRoomsComponent implements OnInit {
 
-  constructor() { }
+  roomsArray : IRoom[];
 
-  public  room:string= 'Camera ksl';
+
+  constructor( public http: HttpClient) { }
+
+  
   ngOnInit() {
+    this.http.get("https://scenic-voyageurs-67377.herokuapp.com/room").subscribe((data: IRoom[]) => {
+      console.log("get user", data);
+      this.roomsArray = data; 
+    });
+
+
   }
 
 }
