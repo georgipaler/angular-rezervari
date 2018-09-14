@@ -16,12 +16,21 @@ export class AllRoomsComponent implements OnInit {
 
   
   ngOnInit() {
-    this.http.get("https://scenic-voyageurs-67377.herokuapp.com/room").subscribe((data: IRoom[]) => {
-      console.log("get user", data);
+    this.http.get("https://scenic-voyageurs-67377.herokuapp.com/room")
+    .subscribe((data: IRoom[]) => {
       this.roomsArray = data; 
+      console.log("get user", this.roomsArray);
     });
 
 
   }
+
+  public compare(building: string, searchBuilding: string): boolean {
+    if (building.toLowerCase() === (searchBuilding.toLowerCase())) {
+      return true;
+    }
+    return false;
+  }
+
 
 }
