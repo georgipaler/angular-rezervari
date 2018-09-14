@@ -9,7 +9,7 @@ export class AllRoomsComponent implements OnInit {
 
   constructor() { }
 
-  public  room: '1.';
+  public  room:string= 'Camera ksl';
   ngOnInit() {
   }
 

@@ -4,16 +4,16 @@
 
             <ul>
                 <li>
-                    <a href="#management">Management</a>
+                    <a href="/#/admin">Management</a>
                 </li>
                 <li>
-                    <a href="#users">All users</a>
+                    <a href="/#/users">All users</a>
                 </li>
                 <li>
-                    <a href="#booking">Booking rooms</a>
+                    <a href="/#/booking">Booking rooms</a>
                 </li>
                 <li>
-                    <a  href="#rooms">All rooms</a>
+                    <a  href="/#/">All rooms</a>
                 </li>
                 <li>
                     <h1 class="title">{{title}}</h1>
@@ -23,20 +23,7 @@
     </div>
 
     <div class="mainWrraper">
-
-        <div id="rooms">
-                <app-all-rooms></app-all-rooms>
-        </div>
-        <div id="booking">
-               <p>booking page</p><br><br><br><br><br><br><br>
-        </div>
-        <div id="users">
-                <p>users page</p><br><br><br><br><br><br><br><br><br>
-
-        </div>
-        <div id="management">
-                <p>management page</p>
-        </div>
+        <router-outlet></router-outlet>
     </div>
 
 </div>
