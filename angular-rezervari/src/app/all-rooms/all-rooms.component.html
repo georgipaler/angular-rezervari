@@ -1,3 +1,23 @@
+<div *ngFor="let building of buildingCateg">
+    <h1 *ngIf="building == 'Building1'">Building 1</h1>
+    <h1 *ngIf="building == 'Building2'">Building 2</h1>
+    <div *ngFor="let floor of floorCateg">
+        <h3>Floor{{floor}}</h3>
+          <div class="cardWrraper" *ngFor="let room of roomsArray">
+      
+            <div *ngIf="floor == room.floor && building == room.building" class="card">
+              <div class="container">
+                <h4>
+                  <b>{{room.name}}</b>
+                </h4>
+                <p>Etaj: {{room.floor}}</p>
+                <p>Cladire: {{room.building}}</p>
+              </div>
+            </div>
+        </div>
+      </div>
+</div>
+
 <!-- <div>
   <h3>Cladire 1:</h3>
   <select (change)="filterForeCasts($event.target.value)">
@@ -67,23 +87,3 @@
 
 </div> -->
 
-
-<div *ngFor="let building of buildingCateg">
-    <h1 *ngIf="building == 'Building1'">Building 1</h1>
-    <h1 *ngIf="building == 'Building2'">Building 2</h1>
-    <div *ngFor="let floor of floorCateg">
-        <h3>Floor{{floor}}</h3>
-          <div class="cardWrraper" *ngFor="let room of filtered2">
-      
-            <div *ngIf="floor == room.floor && building == room.building" class="card">
-              <div class="container">
-                <h4>
-                  <b>{{room.name}}</b>
-                </h4>
-                <p>Etaj: {{room.floor}}</p>
-                <p>Cladire: {{room.building}}</p>
-              </div>
-            </div>
-        </div>
-      </div>
-</div>
