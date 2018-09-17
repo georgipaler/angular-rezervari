@@ -1,3 +1,17 @@
-<p>
-  booking works!
-</p>
+<form name="myForm" class="form-control">
+  Room:
+  <input type="text" name="name" value="name"  formControlName="name" required minlength="4">
+  <br> Start date:
+  <input type="date" name="startDate" value="startDate" formControlName="startDate">
+  <br> End date:
+  <input type="date" name="endDate" value="endDate" formControlName="endDate">
+  <br> Room:
+  <input list="rooms">
+  <datalist id="rooms">
+    <div *ngFor="let room of roomsArray">
+      <option value="{{room.name}}">
+    </div>
+  </datalist>
+  <br>
+  <input type="submit" value="Submit"  [disabled]="!myForm.valid">
+</form>

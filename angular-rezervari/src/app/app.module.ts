@@ -10,6 +10,7 @@ import { ManagementComponent } from './management/management.component';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
+import { FormBuilder } from '@angular/forms';
 const routes: Routes =[
   { path: '', redirectTo: 'rooms', pathMatch: 'full'},
   { path: 'rooms', component: AllRoomsComponent},
@@ -31,7 +32,7 @@ const routes: Routes =[
     HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true} )
   ],
-  providers: [],
+  providers: [FormBuilder],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
