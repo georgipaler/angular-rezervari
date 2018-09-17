@@ -21,8 +21,8 @@ export class AllRoomsComponent implements OnInit {
     this.http.get("https://scenic-voyageurs-67377.herokuapp.com/room")
       .subscribe((data: IRoom[]) => {
         this.roomsArray = data;
-        this.filtered1 = this.roomsArray;
-        this.filtered2 = this.roomsArray;
+        this.filtered1 = [...this.roomsArray];
+        this.filtered2 =[...this.roomsArray];
         console.log("get user", this.roomsArray);
 
 
