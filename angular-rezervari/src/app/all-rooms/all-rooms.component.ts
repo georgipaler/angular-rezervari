@@ -51,11 +51,4 @@ export class AllRoomsComponent implements OnInit {
     }
     return false;
   }
-
-  filterForeCasts(filterVal: any) {
- 
-      this.filtered1 = this.roomsArray.filter((item) => item.floor == filterVal && item.building == 'Building1');
-      this.filtered2 = this.roomsArray.filter((item) => item.floor == filterVal && item.building == 'Building2');
-  }
-
 }
