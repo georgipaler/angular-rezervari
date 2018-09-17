@@ -11,6 +11,7 @@ export class AllRoomsComponent implements OnInit {
 
   roomsArray: IRoom[];
   public floorCateg: number[];
+  public buildingCateg: string[];
   public selectedFloor = 3;
   public filtered1: IRoom[];
   public filtered2: IRoom[];
@@ -25,6 +26,12 @@ export class AllRoomsComponent implements OnInit {
         this.filtered2 =[...this.roomsArray];
         console.log("get user", this.roomsArray);
 
+        this.buildingCateg = Array.from(new Set(this.roomsArray.map(tip => { return tip.building; })));
+          this.buildingCateg.sort(function (categ1, categ2) {
+          if (categ1 < categ2) return -1;
+          if (categ1 > categ2) return 1;
+          return 0;
+        });
 
         this.floorCateg = Array.from(new Set(this.roomsArray.map(tip => { return tip.floor; })));
         this.floorCateg.sort(function (categ1, categ2) {
@@ -46,15 +53,9 @@ export class AllRoomsComponent implements OnInit {
   }
 
   filterForeCasts(filterVal: any) {
-    if (filterVal == "0" || filterVal == "10") {
-    this.filtered1 = this.roomsArray;
-      this.filtered2 = this.roomsArray;
-    }
-    else {
+ 
       this.filtered1 = this.roomsArray.filter((item) => item.floor == filterVal && item.building == 'Building1');
       this.filtered2 = this.roomsArray.filter((item) => item.floor == filterVal && item.building == 'Building2');
-    }
-
   }
 
 }
