@@ -1,8 +1,15 @@
+    <div>
+        <h3>Cladire 1:</h3>
+        <select (change)="filterForeCasts($event.target.value)">
+            <option value="0">--All--</option>
+            <option *ngFor="let floor of floorCateg" value={{floor}}>
+                Floor {{floor}}
+            </option>
+        </select>
+    </div>
 
-    <h3>Cladire 1:</h3>
-    <div class="cardWrraper" *ngFor="let room of roomsArray">
+    <div class="cardWrraper" *ngFor="let room of filtered1">
             <div *ngIf="compare(room.building, 'Building1')">
-        
                     <div class="card">
                                 <div class="container">
                                   <h4><b>{{room.name}}</b></h4> 
@@ -12,8 +19,18 @@
                     </div>
                 </div>
     </div>
-    <h3>Cladire 2:</h3>
-    <div class="cardWrraper"  *ngFor="let room of roomsArray">
+
+    <div>
+        <h3>Cladire 2:</h3>
+        <select (change)="filterForeCasts($event.target.value)">
+            <option value="10">--All--</option>
+            <option *ngFor="let floor of floorCateg" value={{floor}}>
+                Floor {{floor}}
+            </option>
+        </select>
+    </div>
+    
+    <div class="cardWrraper"  *ngFor="let room of filtered2">
             <div *ngIf="compare(room.building, 'Building2')">
               
                     <div class="card">

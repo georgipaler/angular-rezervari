@@ -9,18 +9,31 @@ import { IRoom } from './room-interface/room';
 })
 export class AllRoomsComponent implements OnInit {
 
-  roomsArray : IRoom[];
+  roomsArray: IRoom[];
+  public floorCateg: number[];
+  public selectedFloor = 3;
+  public filtered1: IRoom[];
+  public filtered2: IRoom[];
+  constructor(public http: HttpClient) { }
 
 
-  constructor( public http: HttpClient) { }
-
-  
   ngOnInit() {
     this.http.get("https://scenic-voyageurs-67377.herokuapp.com/room")
-    .subscribe((data: IRoom[]) => {
-      this.roomsArray = data; 
-      console.log("get user", this.roomsArray);
-    });
+      .subscribe((data: IRoom[]) => {
+        this.roomsArray = data;
+        this.filtered1 = this.roomsArray;
+        this.filtered2 = this.roomsArray;
+        console.log("get user", this.roomsArray);
+
+
+        this.floorCateg = Array.from(new Set(this.roomsArray.map(tip => { return tip.floor; })));
+        this.floorCateg.sort(function (categ1, categ2) {
+          if (categ1 < categ2) return -1;
+          if (categ1 > categ2) return 1;
+          return 0;
+        });
+        console.log("floorCateg", this.floorCateg);
+      });
 
 
   }
@@ -32,5 +45,16 @@ export class AllRoomsComponent implements OnInit {
     return false;
   }
 
+  filterForeCasts(filterVal: any) {
+    if (filterVal == "0" || filterVal == "10") {
+    this.filtered1 = this.roomsArray;
+      this.filtered2 = this.roomsArray;
+    }
+    else {
+      this.filtered1 = this.roomsArray.filter((item) => item.floor == filterVal && item.building == 'Building1');
+      this.filtered2 = this.roomsArray.filter((item) => item.floor == filterVal && item.building == 'Building2');
+    }
+
+  }
 
 }
