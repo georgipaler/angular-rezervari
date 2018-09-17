@@ -1,3 +1,4 @@
-<p>
-  all-users works!
-</p>
+<div *ngFor="let user of usersArray">
+    <h3>{{user.username}}</h3>
+    <p>{{user.type}}</p>
+  </div>
