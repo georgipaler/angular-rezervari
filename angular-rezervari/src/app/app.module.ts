@@ -11,6 +11,7 @@ import { Routes, RouterModule, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FormBuilder } from '@angular/forms';
+import { RoomCardComponent } from './room-card/room-card.component';
 const routes: Routes =[
   { path: '', redirectTo: 'rooms', pathMatch: 'full'},
   { path: 'rooms', component: AllRoomsComponent},
@@ -25,7 +26,8 @@ const routes: Routes =[
     AllRoomsComponent,
     AllUsersComponent,
     BookingComponent,
-    ManagementComponent
+    ManagementComponent,
+    RoomCardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,16 @@
-<p>
-  management works!
-</p>
+<div *ngFor="let building of buildingCateg">
+    <h1 *ngIf="building == 'Building1'">Building 1</h1>
+    <h1 *ngIf="building == 'Building2'">Building 2</h1>
+    <div *ngFor="let floor of floorCateg">
+        <h3>Floor{{floor}}</h3>
+          <div class="cardWrraper" *ngFor="let room of roomsArray"  >
+            <div *ngIf="floor == room.floor && building == room.building"  >
+              <app-room-card [data]="room" (showRoom)="showRoom($event)"></app-room-card>
+            </div>
+        </div>
+      </div>
+</div>
+
+<div>
+  <button type="button" class="btn float" (onClick)="addRoom()"><i class="fa fa-plus my-float"></i></button>
+</div>
