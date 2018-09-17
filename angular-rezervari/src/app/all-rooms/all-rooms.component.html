@@ -1,9 +1,29 @@
 
-
-
-
-<p>
-  all-rooms works!
+    <h3>Cladire 1:</h3>
+    <div class="cardWrraper" *ngFor="let room of roomsArray">
+            <div *ngIf="compare(room.building, 'Building1')">
+        
+                    <div class="card">
+                                <div class="container">
+                                  <h4><b>{{room.name}}</b></h4> 
+                                  <p>Etaj: {{room.floor}}</p> 
+                                  <p>Cladire: {{room.building}}</p> 
+                                </div>
+                    </div>
+                </div>
+    </div>
+    <h3>Cladire 2:</h3>
+    <div class="cardWrraper"  *ngFor="let room of roomsArray">
+            <div *ngIf="compare(room.building, 'Building2')">
+              
+                    <div class="card">
+                                <div class="container">
+                                  <h4><b>{{room.name}}</b></h4> 
+                                  <p>Etaj: {{room.floor}}</p> 
+                                  <p>Cladire: {{room.building}}</p> 
+                                </div>
+                    </div>
+                </div>
+                
+    </div>
   
-</p>
-<p>{{room}}</p>
