@@ -46,3 +46,21 @@
 .my-float{
 	margin-top:22px;
 }
+
+form{
+    width: 50vw;
+    background-color: white;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
