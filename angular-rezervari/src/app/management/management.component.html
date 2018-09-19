@@ -7,6 +7,7 @@
     <button class="btn-req" (click)="editRoom()">Edit
       <i class="fa fa-edit"></i>
     </button>
+    <p *ngIf="info">Alegeti camera pe care o editati</p>
     <div *ngFor="let floor of floorCateg">
       <h3>Floor{{floor}}</h3>
       <div class="cardWrraper" *ngFor="let room of roomsArray">
@@ -50,7 +51,7 @@
       </datalist>
       <br>
     </form>
-    <button (click)="newRoom()" [disabled]="!form.valid">
+    <button (click)="addRoomDataObservable()" [disabled]="!form.valid">
       Save
     </button>
   </div>

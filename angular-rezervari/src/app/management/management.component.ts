@@ -24,7 +24,7 @@ export class ManagementComponent implements OnInit {
   public editOpen: boolean = false;
   public roomsListSubject: BehaviorSubject<any> = new BehaviorSubject([]);
   public roomsList: Observable<IRoom[]>;
-
+  public info : boolean =false;
   public denumire:any;
   public etaj: any;
   public cladire: any;
@@ -93,20 +93,29 @@ export class ManagementComponent implements OnInit {
 
   //edit room
   editRoom() {
-    this.editOpen = true;
-    console.log("edit room", this.room);
-    console.log("do edit");
+    if(this.room == undefined){
+      this.info = true;
+    }
+    else{
+      this.editOpen = true;
+      console.log("edit room", this.room);
+      console.log("do edit");
+    }
+   
   }
 
   editThisRoom() {
   
     let room: IRoom = {
-      name: "edit edit",
-      floor: 3,
-      building: 'Build3'
+      name: this.denumire,
+      floor: this.etaj,
+      building: this.cladire
     }
 
-    this.http.patch("https://scenic-voyageurs-67377.herokuapp.com/room/5b9a6cd0b56436001484ebc1", room)
+    this.deleteLocalRoom(this.room);
+    this.roomsArray = this.roomsArray.concat([room]);
+
+    this.http.patch("https://scenic-voyageurs-67377.herokuapp.com/room/"+ this.room._id, room)
     .subscribe(
       (val) => {
         console.log("PATCH call successful value returned in body",
@@ -136,18 +145,6 @@ export class ManagementComponent implements OnInit {
     console.log(this.formRoomOpen);
   }
 
-
-  
-
-  newRoom(camera: IRoom): IRoom {
-    camera = this.form.value;
-    this.addRooms(this.form.value);
-    this.roomsArray = this.roomsArray.concat([this.form.value]);
-    return camera;
-  }
-
- 
-
   addRoomDataObservable(): Observable<any> {
 
     let room: any = {
@@ -161,14 +158,6 @@ export class ManagementComponent implements OnInit {
       .post("https://scenic-voyageurs-67377.herokuapp.com/room", room);
   }
 
-  addRooms(camera: any): void {
-    this.currentRoom = camera;
-
-    this.addRoomDataObservable().subscribe(data => {
-      this.roomsArray.push(_.cloneDeep(camera));
-      this.roomsListSubject.next(this.roomsArray);
-    });
-  }
 
   onNameKeyup(event: any) {
     this.denumire= event.target.value;
@@ -184,14 +173,29 @@ export class ManagementComponent implements OnInit {
     console.log(this.cladire);
   }
 
-  private cloneRooms() {
-    return _.cloneDeep(this.roomsListSubject.getValue());
-  }
+ 
 
   goBack(){
     this.formRoomOpen = false;
     this.editOpen = false;
   }
 
+    // addRooms(): void {
+  //   let room: any = {
+  //     name: this.denumire,
+  //     floor: this.etaj,
+  //     building: this.cladire
+  //   }
+  //   this.currentRoom = room;
+
+  //   this.addRoomDataObservable().subscribe(data => {
+  //     this.roomsArray.push(_.cloneDeep(room));
+  //     this.roomsListSubject.next(this.roomsArray);
+  //   });
+  // }
+
+  private cloneRooms() {
+    return _.cloneDeep(this.roomsListSubject.getValue());
+  }
 }
 
