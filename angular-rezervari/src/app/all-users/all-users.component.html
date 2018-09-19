@@ -1,4 +1,13 @@
 <div *ngFor="let user of usersArray">
-    <h3>{{user.username}}</h3>
-    <p>{{user.type}}</p>
+
+ <h3> Nume utilizator: {{user.username}}</h3>
+ <h3> Email:{{user.email}}</h3>
+  <div  *ngFor="let reservation of reservations; let i=index">
+     <div *ngIf="user._id === reservation.userId">
+        <h5>• {{reservation.name}}</h5>
+        <p>Start date: {{reservation.startDate}}</p>
+        <p>End date: {{reservation.endDate}}</p>
+     </div>
   </div>
+ 
+</div>
