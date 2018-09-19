@@ -1,0 +1,73 @@
+.cardWrraper{
+    display: inline-grid;
+    grid-gap: 50px 100px;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 300px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+    padding: 2px 16px;
+    margin-left: 40px;
+}
+
+.btn-req{
+    background-color: white;
+    font-size: 15px; 
+    border: 0.5px solid #0094C6;
+    color: #0094C6;
+    box-shadow: 2px 2px 3px #999;
+    margin-left: 0.5vw;
+}
+.btn {
+    background-color: #0094C6; 
+    border-radius: 50%;
+    border: none; 
+    color: white; 
+    cursor: pointer; 
+}
+
+.btn:hover {
+    background-color: #001242;
+}
+
+.float{
+	position:fixed;
+	bottom:40px;
+	right:40px;
+	background-color:#0094C6;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+    box-shadow: 2px 2px 3px #999;
+    padding: 4px 25px 19px 25px; 
+    font-size: 16px; 
+    cursor: pointer; 
+}
+.my-float{
+	margin-top:22px;
+}
+
+div.form-room {
+    width: 50vw;
+    background-color: white;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
