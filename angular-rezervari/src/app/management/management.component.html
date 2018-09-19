@@ -1,69 +1,85 @@
 <div *ngIf="!formRoomOpen && !editOpen">
-    <div *ngFor="let building of buildingCateg" >
-        <h1> {{ building}}</h1>
-        <button class="btn-req" (click)="deleteRoom()">Delete <i class="fa fa-trash"></i></button>
-        <button class="btn-req" (click)="editRoom()">Edit <i class="fa fa-edit"></i></button>
-        <div *ngFor="let floor of floorCateg">
-          <h3>Floor{{floor}}</h3>
-          <div class="cardWrraper" *ngFor="let room of roomsArray">
-            <div *ngIf="floor == room.floor && building == room.building">
-              <app-room-card [data]="room" (showRoom)="showRoom($event)"></app-room-card>
-            </div>
-          </div>
+  <div *ngFor="let building of buildingCateg">
+    <h1> {{ building}}</h1>
+    <button class="btn-req" (click)="deleteRoom()">Delete
+      <i class="fa fa-trash"></i>
+    </button>
+    <button class="btn-req" (click)="editRoom()">Edit
+      <i class="fa fa-edit"></i>
+    </button>
+    <div *ngFor="let floor of floorCateg">
+      <h3>Floor{{floor}}</h3>
+      <div class="cardWrraper" *ngFor="let room of roomsArray">
+        <div *ngIf="floor == room.floor && building == room.building">
+          <app-room-card [data]="room" (showRoom)="showRoom($event)"></app-room-card>
         </div>
       </div>
+    </div>
+  </div>
 </div>
 
 
-<div>
+<div *ngIf="!formRoomOpen">
   <button type="button" class="btn float" (click)="addRoom()">
     <i class="fa fa-plus my-float"></i>
   </button>
 </div>
 
-<div *ngIf="formRoomOpen" class="form-room">
-  <form name="form" class="form-control"  >
-    Room:
-    <input type="text"  formControlName="name" (keyup)="onNameKeyup($event)">
-    <br> Floor:
-    <input list="floors" type="number" formControlName="floors" (keyup)="onFloorKeyup($event)">
-    <datalist id="floors">
+<div *ngIf="formRoomOpen">
+  <button (click)="goBack()">
+    <i class="fa fa-arrow-left"></i>
+  </button>
+  <div class="form-room">
+    <h4>Add room</h4>
+    <form name="form" class="form-control">
+      Room:
+      <input type="text" formControlName="name" (keyup)="onNameKeyup($event)">
+      <br> Floor:
+      <input list="floors" type="number" formControlName="floors" (keyup)="onFloorKeyup($event)">
+      <datalist id="floors">
         <option value="1">
-        <option value="2">
-        <option value="3">
-        <option value="4">
-    </datalist>
-    <br> Building:
-    <input list="building" type="text" formControlName="building" (keyup)="onBuildingKeyup($event)">
-    <datalist id="building">
-      <option value="Building1">
-      <option value="Building2">
-    </datalist>
-    <br>
-  </form>
-  <button  (click)="newRoom()" [disabled]="!form.valid">
-    Save
-</button>
+          <option value="2">
+            <option value="3">
+              <option value="4">
+      </datalist>
+      <br> Building:
+      <input list="building" type="text" formControlName="building" (keyup)="onBuildingKeyup($event)">
+      <datalist id="building">
+        <option value="Building1">
+          <option value="Building2">
+      </datalist>
+      <br>
+    </form>
+    <button (click)="newRoom()" [disabled]="!form.valid">
+      Save
+    </button>
+  </div>
 </div>
 
 
-<div *ngIf="editOpen" class="form-room">
-    <form name="form" class="form-control" (ngSubmit)="onSubmit()"  >
+<div *ngIf="editOpen">
+  <button (click)="goBack()">
+    <i class="fa fa-arrow-left"></i>
+  </button>
+
+  <div class="form-room">
+    <h4>Update room</h4>
+    <form name="form" class="form-control">
       Room:
       <input type="text" name="name" formControlName="name" value="{{room.name}}" (keyup)="editNameKeyup($event)">
       <br> Floor:
-      <input list="floors" value="{{room.floor}}"  formControlName="floors"  (keyup)="editFloorKeyup($event)">
+      <input list="floors" value="{{room.floor}}" formControlName="floors" (keyup)="editFloorKeyup($event)">
       <datalist id="floors">
-          <option value="1">
+        <option value="1">
           <option value="2">
-          <option value="3">
-          <option value="4">
+            <option value="3">
+              <option value="4">
       </datalist>
       <br> Building:
-      <input list="building" value="{{room.building}}"formControlName="building" (keyup)="editBuildingKeyup($event)">
+      <input list="building" value="{{room.building}}" formControlName="building" (keyup)="editBuildingKeyup($event)">
       <datalist id="building">
         <option value="Building1">
-        <option value="Building2">
+          <option value="Building2">
       </datalist>
       <br>
     </form>
@@ -71,3 +87,4 @@
       Update
     </button>
   </div>
+</div>

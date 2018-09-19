@@ -15,8 +15,8 @@ export class RoomCardComponent implements OnInit {
   
   constructor() { }
 
-  ngOnInit() {
-    console.log("data", this.dataToUse)
+  ngOnInit(){
+    
   }
 
   showRoom(){

@@ -47,7 +47,6 @@ export class ManagementComponent implements OnInit {
         this.filtered1 = _.cloneDeep(data);
         this.filtered2 = _.cloneDeep(data);
         this.roomsArray = _.cloneDeep(data);
-        console.log("rooms array", this.roomsArray);
         this.buildingCateg = Array.from(new Set(this.roomsArray.map(tip => { return tip.building; })));
         this.buildingCateg.sort((categ1, categ2) => {
           if (categ1 < categ2) return -1;
@@ -61,7 +60,6 @@ export class ManagementComponent implements OnInit {
           if (categ1 > categ2) return 1;
           return 0;
         });
-        console.log("floorCateg", this.floorCateg);
       });
 
       
@@ -83,9 +81,15 @@ export class ManagementComponent implements OnInit {
   //delete room
   deleteRoom() {
     console.log("do delete", this.room._id);
+    this.deleteLocalRoom(this.room);
     this.http.delete("https://scenic-voyageurs-67377.herokuapp.com/room/" + this.room._id).subscribe(res => console.log("delete", res));
   }
-
+  deleteLocalRoom(element){
+      const index = this.roomsArray.indexOf(element);
+      if (index !== -1) {
+          this.roomsArray.splice(index, 1);
+      }
+  }
 
   //edit room
   editRoom() {
@@ -133,11 +137,7 @@ export class ManagementComponent implements OnInit {
   }
 
 
-  onSubmit() {
-    console.log("######");
-    this.addRooms(this.form.value);
-    this.roomsArray = this.roomsArray.concat([this.form.value]);
-  }
+  
 
   newRoom(camera: IRoom): IRoom {
     camera = this.form.value;
@@ -146,6 +146,8 @@ export class ManagementComponent implements OnInit {
     return camera;
   }
 
+ 
+
   addRoomDataObservable(): Observable<any> {
 
     let room: any = {
@@ -153,6 +155,8 @@ export class ManagementComponent implements OnInit {
       floor: this.etaj,
       building: this.cladire
     }
+    this.roomsArray = this.roomsArray.concat([room]);
+
     return this.http
       .post("https://scenic-voyageurs-67377.herokuapp.com/room", room);
   }
@@ -182,6 +186,11 @@ export class ManagementComponent implements OnInit {
 
   private cloneRooms() {
     return _.cloneDeep(this.roomsListSubject.getValue());
+  }
+
+  goBack(){
+    this.formRoomOpen = false;
+    this.editOpen = false;
   }
 
 }
