@@ -19,14 +19,21 @@ export class BookingComponent implements OnInit {
             private formBuilder : FormBuilder) {
               
     this.myForm = this.formBuilder.group({
-      'name': new FormControl('', [
+      'yourName': new FormControl( [
         Validators.required,
         Validators.minLength(4)
       ]),
-      'startDate': new FormControl('', [
+      'name': new FormControl( [
+        Validators.required,
+        Validators.minLength(4)
+      ]),
+      'startDate': new FormControl( [
         Validators.required
       ]),
-      'endDate': new FormControl('', [
+      'endDate': new FormControl([
+        Validators.required
+      ]),
+      'room': new FormControl([
         Validators.required
       ]),
     });
