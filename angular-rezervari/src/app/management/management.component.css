@@ -17,12 +17,19 @@
     margin-left: 40px;
 }
 
+.btn-req{
+    background-color: white;
+    font-size: 15px; 
+    border: 0.5px solid #0094C6;
+    color: #0094C6;
+    box-shadow: 2px 2px 3px #999;
+    margin-left: 0.5vw;
+}
 .btn {
     background-color: #0094C6; 
     border-radius: 50%;
     border: none; 
     color: white; 
-    
     cursor: pointer; 
 }
 
@@ -47,7 +54,7 @@
 	margin-top:22px;
 }
 
-form{
+div.form-room {
     width: 50vw;
     background-color: white;
     margin: 0;

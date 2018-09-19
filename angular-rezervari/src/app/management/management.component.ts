@@ -11,55 +11,61 @@ import * as _ from 'lodash';
 })
 export class ManagementComponent implements OnInit {
 
-  roomsArray: Array<IRoom> =[];
-  public floorCateg: number[] ;
+  roomsArray: Array<IRoom> = [];
+  public floorCateg: number[];
   public buildingCateg: string[];
   public selectedFloor = 3;
   public filtered1: IRoom[];
   public filtered2: IRoom[];
   public currentRoom: IRoom;
   public room: IRoom;
-  public form 	: FormGroup;
-  public formRoomOpen: boolean =false;
-
-  public roomsListSubject:BehaviorSubject<any> = new BehaviorSubject([]) ;
+  public form: FormGroup;
+  public formRoomOpen: boolean = false;
+  public editOpen: boolean = false;
+  public roomsListSubject: BehaviorSubject<any> = new BehaviorSubject([]);
   public roomsList: Observable<IRoom[]>;
 
+  public denumire:any;
+  public etaj: any;
+  public cladire: any;
+
   constructor(public http: HttpClient,
-        private formBuilder : FormBuilder) { 
-          this.form = this.formBuilder.group({
-            name: [ [Validators.required, Validators.minLength(3)]],
-            floors: [  Validators.required],
-            building: [  Validators.required]
-          });
-        }
+    private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      name: [[Validators.required, Validators.minLength(3)]],
+      floors: [Validators.required],
+      building: [Validators.required]
+    });
+  }
 
 
   ngOnInit() {
     this.http.get("https://scenic-voyageurs-67377.herokuapp.com/room")
       .subscribe((data: IRoom[]) => {
-        
+
         this.roomsListSubject.next(_.cloneDeep(data));
-        this.filtered1= _.cloneDeep(data);
-        this.filtered2= _.cloneDeep(data);
-        this.roomsArray= _.cloneDeep(data);
+        this.filtered1 = _.cloneDeep(data);
+        this.filtered2 = _.cloneDeep(data);
+        this.roomsArray = _.cloneDeep(data);
         console.log("rooms array", this.roomsArray);
         this.buildingCateg = Array.from(new Set(this.roomsArray.map(tip => { return tip.building; })));
-        this.buildingCateg.sort((categ1, categ2)=>{
-            if(categ1 < categ2) return -1;
-            if(categ1 > categ2) return 1;
-            return 0;
-          });
+        this.buildingCateg.sort((categ1, categ2) => {
+          if (categ1 < categ2) return -1;
+          if (categ1 > categ2) return 1;
+          return 0;
+        });
 
-          this.floorCateg = Array.from(new Set(this.roomsArray.map(tip => { return tip.floor; })));
-          this.floorCateg.sort((categ1, categ2)=>{
-              if(categ1 < categ2) return -1;
-              if(categ1 > categ2) return 1;
-              return 0;
-            });
+        this.floorCateg = Array.from(new Set(this.roomsArray.map(tip => { return tip.floor; })));
+        this.floorCateg.sort((categ1, categ2) => {
+          if (categ1 < categ2) return -1;
+          if (categ1 > categ2) return 1;
+          return 0;
+        });
         console.log("floorCateg", this.floorCateg);
       });
 
+      
+    
   }
 
   public compare(building: string, searchBuilding: string): boolean {
@@ -69,44 +75,112 @@ export class ManagementComponent implements OnInit {
     return false;
   }
 
-  addRoom(){
-    this.formRoomOpen = true;
-    console.log(this.formRoomOpen);
-  }
   showRoom(room: IRoom): void {
     this.room = room;
     console.log("room", this.room);
   }
 
-  newRoom(camera: IRoom): IRoom{
+  //delete room
+  deleteRoom() {
+    console.log("do delete", this.room._id);
+    this.http.delete("https://scenic-voyageurs-67377.herokuapp.com/room/" + this.room._id).subscribe(res => console.log("delete", res));
+  }
+
+
+  //edit room
+  editRoom() {
+    this.editOpen = true;
+    console.log("edit room", this.room);
+    console.log("do edit");
+  }
+
+  editThisRoom() {
+  
+    let room: IRoom = {
+      name: "edit edit",
+      floor: 3,
+      building: 'Build3'
+    }
+
+    this.http.patch("https://scenic-voyageurs-67377.herokuapp.com/room/5b9a6cd0b56436001484ebc1", room)
+    .subscribe(
+      (val) => {
+        console.log("PATCH call successful value returned in body",
+          val);
+      }, error=> console.log(error))
+  }
+  
+  editNameKeyup(event: any) {
+    this.denumire= event.target.value;
+    console.log("denu", this.denumire);
+    
+  }
+  editFloorKeyup(event: any) {
+    this.etaj = event.target.value;
+    console.log(this.etaj);
+  }
+  editBuildingKeyup(event: any) {
+    this.cladire = event.target.value;
+    console.log(this.cladire);
+  }
+
+ 
+
+  //add room
+  addRoom() {
+    this.formRoomOpen = true;
+    console.log(this.formRoomOpen);
+  }
+
+
+  onSubmit() {
+    console.log("######");
+    this.addRooms(this.form.value);
+    this.roomsArray = this.roomsArray.concat([this.form.value]);
+  }
+
+  newRoom(camera: IRoom): IRoom {
     camera = this.form.value;
     this.addRooms(this.form.value);
     this.roomsArray = this.roomsArray.concat([this.form.value]);
     return camera;
   }
-  onSubmit(){
-    console.log("######");
-    this.addRooms(this.form.value);
-    this.roomsArray = this.roomsArray.concat([this.form.value]);
-  }
-  
 
-  addRoomDataObservable(room: IRoom): Observable<any> {
+  addRoomDataObservable(): Observable<any> {
+
+    let room: any = {
+      name: this.denumire,
+      floor: this.etaj,
+      building: this.cladire
+    }
     return this.http
-    .post("https://scenic-voyageurs-67377.herokuapp.com/room", room);
+      .post("https://scenic-voyageurs-67377.herokuapp.com/room", room);
   }
 
-  addRooms(camera: any):void {
-    this.currentRoom = this.newRoom(camera);
-   
-    this.addRoomDataObservable(this.currentRoom).subscribe(data => {
+  addRooms(camera: any): void {
+    this.currentRoom = camera;
+
+    this.addRoomDataObservable().subscribe(data => {
       this.roomsArray.push(_.cloneDeep(camera));
       this.roomsListSubject.next(this.roomsArray);
-
     });
-  } 
+  }
 
-  private cloneRooms(){
+  onNameKeyup(event: any) {
+    this.denumire= event.target.value;
+    console.log("denu", this.denumire);
+    
+  }
+  onFloorKeyup(event: any) {
+    this.etaj = event.target.value;
+    console.log(this.etaj);
+  }
+  onBuildingKeyup(event: any) {
+    this.cladire = event.target.value;
+    console.log(this.cladire);
+  }
+
+  private cloneRooms() {
     return _.cloneDeep(this.roomsListSubject.getValue());
   }
 
