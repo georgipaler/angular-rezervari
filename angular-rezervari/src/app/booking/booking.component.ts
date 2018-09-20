@@ -101,14 +101,14 @@ export class BookingComponent implements OnInit {
     console.log( this.resName);
   }
 
-  onKeyupStartDate(event: any){
+  startDateChange(event: any){
     var date = new Date(event.target.value); 
     var milliseconds = date.getTime(); 
     this.startDate = milliseconds;
     console.log( this.startDate);
   }
 
-  onKeyupEndDate(event: any){
+  endDateChange(event: any){
     var date = new Date(event.target.value); 
     var milliseconds = date.getTime(); 
     this.endDate = milliseconds;
@@ -120,14 +120,34 @@ export class BookingComponent implements OnInit {
     console.log( this.roomName);
   }
 
+
   //submit - add reservation
  
   addReservation(): Observable<any> {
 
-    this.booking = this.showReservation();
+    this.usersArray.forEach(user => {
+      if(this.compare(user.username, this.username)){
+        this.username = user._id;
+      }
+    });
+    this.roomsArray.forEach(room => {
+      if(this.compare(room.name, this.roomName)){
+        this.roomName = room._id;
+      }
+    });
+    let formInput: IReservation = {
+      name: this.resName,
+      roomId: this.roomName,
+      userId: this.username,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      
+    }
+    console.log(formInput);
+
     console.log("post");
     return this.http
-      .post("https://scenic-voyageurs-67377.herokuapp.com/reservation", this.booking);
+      .post("https://scenic-voyageurs-67377.herokuapp.com/reservation", formInput);
   }
 
 
