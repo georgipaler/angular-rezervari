@@ -1,17 +1,22 @@
-<form name="myForm" class="form-control">
-  Room:
-  <input type="text" name="name" value="name"  formControlName="name" required minlength="4">
-  <br> Start date:
-  <input type="date" name="startDate" value="startDate" formControlName="startDate">
-  <br> End date:
-  <input type="date" name="endDate" value="endDate" formControlName="endDate">
-  <br> Room:
-  <input list="rooms">
-  <datalist id="rooms">
-    <div *ngFor="let room of roomsArray">
-      <option value="{{room.name}}">
-    </div>
-  </datalist>
-  <br>
-  <input type="submit" value="Submit"  [disabled]="!myForm.valid">
-</form>
+<div class="add-reservation">
+    <form name="myForm" class="form-control">
+        Your name:
+        <input type="text" name="yourName" placeholder="ex: florian, adriana, georgiana" formControlName="yourName" (keyup)="onKeyupUsername($event)">
+        <br>Reservation:
+        <input type="text" name="name" placeholder="ex: Reservation1" formControlName="name" required minlength="4" (keyup)="onKeyupReservationName($event)">
+        <br> Start date:
+        <input type="text" value="11/21/2018 16:00:00" name="startDate" placeholder="ex: 11/21/1987 16:00:00"  (keyup)="onKeyupStartDate($event)"  formControlName="startDate" >
+        <br> End date:
+        <input type="text" name="endDate" placeholder="ex: 11/21/1987 16:00:00"  (keyup)="onKeyupEndDate($event)" formControlName="endDate">
+        <br> Room:
+        <input list="rooms" formControlName="room" (keyup)="onKeyupRoomName($event)">
+        <datalist id="rooms">
+          <div *ngFor="let room of roomsArray">
+            <option value="{{room.name}}">
+          </div>
+        </datalist>
+        <br>
+      </form>
+      <button (click)="showReservation()">Show reservation</button>
+      <button (click)="addReservation()">Submit</button>
+</div>
