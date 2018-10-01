@@ -4,10 +4,7 @@ export interface IReservation {
     roomId: string,
     userId: string,
     startDate: any,
-<<<<<<< HEAD
-    endDate: any
-=======
     endDate: any,
     _v?: any
->>>>>>> booking-rooms
+
 }

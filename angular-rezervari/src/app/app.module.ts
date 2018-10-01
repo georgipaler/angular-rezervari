@@ -10,7 +10,7 @@ import { ManagementComponent } from './management/management.component';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { RoomCardComponent } from './room-card/room-card.component';
 const routes: Routes =[
   { path: '', redirectTo: 'rooms', pathMatch: 'full'},
